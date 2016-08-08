@@ -1,5 +1,5 @@
 import serial
-import mysql_test2
+import mysql_upload
 
 # need change
 port_name = "/dev/cu.usbmodem1421"
@@ -11,4 +11,4 @@ with serial.Serial(port_name) as arduino_port:
         values = readed.replace('{', '').replace('}', '').split(',')
         for i in values:
             print(i)
-        mysql_test2.upload(values[0], values[1], values[2], values[3])
+        mysql_upload.upload(values[0], values[1], values[2], values[3])
