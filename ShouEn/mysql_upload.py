@@ -4,9 +4,9 @@ import mysql.connector
 
 def upload(area, objectID, objectName, objectValue):
     config = {
-        'user': 'wmnl',
-        'password': 'wmnl1691',
-        'host': '163.13.129.21',
+        'user': 'root',
+        'password': '',
+        'host': 'localhost',
         'database': 'stipendiary',
     }
 
@@ -20,8 +20,8 @@ def upload(area, objectID, objectName, objectValue):
     cursor = cnx.cursor()
 
     insert_command = (
-    "INSERT INTO `301` (`ID`, `area`, `objectID`, `objectName`, `objectValue`, `date`, `time`) VALUES (NULL, '%s', '%s', '%s', '%s', '%s', CURRENT_TIMESTAMP);" % (
-    area, objectID, objectName, objectValue, date))
+    "INSERT INTO `%s` (`ID`, `area`, `objectID`, `objectName`, `objectValue`, `date`, `time`) VALUES (NULL, '%s', '%s', '%s', '%s', '%s', CURRENT_TIMESTAMP);" % (
+    area, area, objectID, objectName, objectValue, date))
 
     cursor.execute(insert_command)
 
