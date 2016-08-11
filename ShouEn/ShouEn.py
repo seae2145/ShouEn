@@ -4,7 +4,7 @@ from mssql_upload import upload as ms_upload
 
 # need change
 port_name = "/dev/ttyACM0"
-area = 301
+area = str(301)
 
 with serial.Serial(port_name) as arduino_port:
     print(arduino_port)
