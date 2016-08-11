@@ -13,3 +13,15 @@ install
     mysql connector python
     pyserial
     create mysql table
+    pymssql
+        > sudo apt-get --assume-yes update
+        > sudo apt-get --assume-yes install freetds-dev freetds-bin
+        > sudo apt-get --assume-yes install python-dev python-pip
+        > sudo pip install pymssql
+    Teamviewer
+        To install:
+            Download the official image from http://www.teamviewer.com/en/download/linux.aspx
+            dpkg --add-architecture i386
+            apt-get update
+            cd ~/Downloads/
+            sudo dpkg -i teamviewer_linux.deb
