@@ -4,9 +4,9 @@ import mysql.connector
 
 def upload(area, objectID, objectName, objectValue):
     config = {
-        'user': 'wmnl',
-        'password': 'wmnl1691',
-        'host': '163.13.129.21',
+        'user': 'root',
+        'password': 'lqdm)s6<;G-A',
+        'host': 'localhost',
         'database': 'stipendiary',
     }
 
