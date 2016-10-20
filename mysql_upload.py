@@ -20,12 +20,11 @@ def upload(area, objectID, objectName, objectValue):
     cursor = cnx.cursor()
 
     insert_command = (
-    "INSERT INTO `301` (`ID`, `area`, `objectID`, `objectName`, `objectValue`, `date`, `time`) VALUES (NULL, '%s', '%s', '%s', '%s', '%s', CURRENT_TIMESTAMP);" % (
-    area, objectID, objectName, objectValue, date))
+        "INSERT INTO `301` (`ID`, `area`, `objectID`, `objectName`, `objectValue`, `date`, `time`) "
+        "VALUES (NULL, '%s', '%s', '%s', '%s', '%s', CURRENT_TIMESTAMP);"
+        % (area, objectID, objectName, objectValue, date))
 
     cursor.execute(insert_command)
-
-    cnx.commit()
 
     cursor.close()
     cnx.close()

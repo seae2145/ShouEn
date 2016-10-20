@@ -1,9 +1,15 @@
 import mysql.connector
 
+# config = {
+#     'user': 'stipendiary',
+#     'password': '073109383',
+#     'host': '163.13.129.28',
+#     'database': 'stipendiary',
+# }
 config = {
-    'user': 'stipendiary',
-    'password': '073109383',
-    'host': '163.13.129.28',
+    'user': 'wmnl',
+    'password': 'wmnl1691',
+    'host': '163.13.129.21',
     'database': 'stipendiary',
 }
 
