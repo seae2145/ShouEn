@@ -1,2 +1,7 @@
-my_dict = {1: 'one', 2: 'two'}
-print(my_dict[1])
+def test():
+
+
+    if 'a' == 'a':
+        return '收縮壓：', '收縮壓：'
+
+print(test())

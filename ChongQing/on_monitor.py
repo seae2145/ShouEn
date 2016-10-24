@@ -1,4 +1,5 @@
 import time
+from ChongQing.pushy import PushyAPI
 import mysql.connector
 
 config = {
@@ -14,11 +15,17 @@ number_dict = {
     '601': '燈', '602': '燈', '603': '燈', '604': '電磁爐', '605': '燈',
     '1001': '窗簾',
     '1401': '紅外線發射器',
+    '2001': '智慧藥盒',
+    'a01': '血壓計',
 }
 status_dict = {
     'Open': '開', 'Close': '關',
     'On': '開', 'Off': '關',
     'on': '開', 'off': '關', 'stop': '停止',
+    'Taken': '吃藥',
+}
+ir_status = {
+    'On': '有人', 'Off': '無人',
 }
 remote_control_dict = {
     '01': '電視開關鍵', '02': '電視頻道向上', '03': '電視頻道向下', '04': '電視音量調大', '05': '電視音量調小', '06': '電視頻道1',
@@ -69,10 +76,20 @@ def new_data_query(id_from):
             "FROM stipendiary.`301` WHERE ID > {};".format(id_from))
 
 
-def status_trans(sensor_number, status_string):
-
-    if sensor_number[0] == '4':
+def status_trans(sensor_number, status_string, status_string2):
+    if sensor_number[0] == '3':
+        return ir_status[status_string]
+    elif sensor_number[0] == '4':
         return status_string
+    elif sensor_number[0] == 'a':
+        if status_string2 > 140 or status_string > 80:
+            # Payload data you want to send to devices
+            data = {'message': '血壓過高'}
+            # The recipient device registration IDs
+            registration_ids = ['6ed6292be4ac96e7b68e9e']  # TODO 改
+            # Send the push notification with Pushy
+            PushyAPI.sendPushNotification(data, registration_ids)
+        return '收縮壓：' + str(status_string2) + '舒張壓：' + str(status_string)
     else:
         return status_dict[status_string]
 
@@ -99,7 +116,7 @@ while True:
             last_id = row[0]
             print(row)
             model = number_dict[row[2]]
-            status = status_trans(row[2], row[4])
+            status = status_trans(row[2], row[4], row[3])
             sensor_time = row[5].strftime('%H:%M:%S')
             print(model, ':', status, '\t', sensor_time)
             row = cursor.fetchone()
