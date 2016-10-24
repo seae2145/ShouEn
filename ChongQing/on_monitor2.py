@@ -57,3 +57,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+'''
+get last id
+query 'last id' to 'newest'
+'''
