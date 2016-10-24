@@ -25,6 +25,7 @@ status_dict = {
     'on': '開', 'off': '關', 'stop': '停止',
     'Taken': '吃藥',
     'sleep': '睡眠', 'wake_up': '起床', 'go_home': '回家', 'go_out': '出門',
+    'up': '升高', 'down': '降低',
     '24': '冷氣開,溫度25,風量中',
     '25': '冷氣開,溫度18,風量小',
     '26': '冷氣開,溫度19,風量小',
@@ -66,7 +67,10 @@ ir_status = {
     'On': '有人', 'Off': '無人',
 }
 tv_row3_dict = {
+    'power': '電源',
     'channel': '頻道',
+    'mute': '靜音',
+    'volume': '音量',
 }
 # remote_control_dict = {
 #     '01': '電視開關鍵', '02': '電視頻道向上', '03': '電視頻道向下', '04': '電視音量調大', '05': '電視音量調小', '06': '電視頻道1',
@@ -92,20 +96,22 @@ def new_data_query(id_from):
             "FROM stipendiary.`301` WHERE ID > {};".format(id_from))
 
 
-def status_trans(sensor_number, status_string, status_string2):
+def status_trans(sensor_number, row4, row3):
     if sensor_number[0] == '3':
-        return ir_status[status_string]
+        return ir_status[row4]
     elif sensor_number[0] == '4':
-        return status_string
+        return row4
     elif sensor_number[0] == '9':
-
-        return 'todo'
+        if row3 == 'channel':
+            return tv_row3_dict[row3] + str(row4)
+        else:
+            return tv_row3_dict[row3] + status_dict[row4]
     elif sensor_number[0] == 'a':
-        if status_string2 > 140 or status_string > 80:
+        if row3 > 140 or row4 > 80:
             push_note('血壓過高')
-        return '收縮壓：' + str(status_string2) + '舒張壓：' + str(status_string)
+        return '收縮壓：' + str(row3) + '舒張壓：' + str(row4)
     else:
-        return status_dict[status_string]
+        return status_dict[row4]
 
 
 last_id = 0
