@@ -2,7 +2,8 @@ import serial
 from mysql_upload import upload as my_upload
 
 # need change
-port_name = "/dev/cu.usbmodem1411"
+# port_name = "/dev/cu.usbmodem1411"
+port_name = "/dev/cu.usbserial-A600K5I9"
 area = str(301)
 
 with serial.Serial(port_name) as arduino_port:

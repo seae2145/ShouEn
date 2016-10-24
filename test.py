@@ -1,15 +1,11 @@
-import serial
-from mysql_upload import upload as my_upload
-
-# need change
-port_name = "/dev/cu.usbmodem1A121"
-area = str(301)
-
-with serial.Serial(port_name) as arduino_port:
-    print(arduino_port)
-    while 1:
-        read = arduino_port.readline().decode('utf-8')
-        print(read)
-        values = read.replace('{', '').replace('}', '').split(',')
-        if values[0] == area:
-            my_upload(values[0], values[1], values[2], values[3])
+my_list = '{301,501,mag,Open}\r\n'
+right_brace_location = my_list.index('}')
+print(right_brace_location)
+print(my_list[1:17])
+# for i in my_list:
+#     print(i)
+#
+# print()
+#
+# for i in my_list[1:-1]:
+#     print(i)
