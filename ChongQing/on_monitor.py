@@ -14,7 +14,7 @@ number_dict = {
     '501': '浴室門', '502': '冰箱門', '503': '廚櫃門', '504': '玄關門',
     '601': '燈', '602': '燈', '603': '燈', '604': '電磁爐', '605': '燈',
     '1001': '窗簾',
-    '1401': '紅外線發射器',
+    '1401': '紅外線發射器', '1501': '情境模式',
     '2001': '智慧藥盒',
     'a01': '血壓計',
 }
@@ -23,15 +23,8 @@ status_dict = {
     'On': '開', 'Off': '關',
     'on': '開', 'off': '關', 'stop': '停止',
     'Taken': '吃藥',
-}
-ir_status = {
-    'On': '有人', 'Off': '無人',
-}
-remote_control_dict = {
-    '01': '電視開關鍵', '02': '電視頻道向上', '03': '電視頻道向下', '04': '電視音量調大', '05': '電視音量調小', '06': '電視頻道1',
-    '07': '電視頻道2', '08': '電視頻道3', '09': '電視頻道4', '10': '電視頻道5', '11': '電視頻道6', '12': '電視頻道7',
-    '13': '電視頻道8', '14': '電視頻道9', '15': '電視頻道0', '16': '電視返回鍵', '17': '電視靜音鍵', '18': '電視輸入切換鍵',
-    '19': '上鍵', '20': '下鍵', '21': '左鍵', '22': '右鍵', '23': 'OK',
+    'sleep': '睡眠',
+    'wake_up': '起床',
     '24': '冷氣開,溫度25,風量中',
     '25': '冷氣開,溫度18,風量小',
     '26': '冷氣開,溫度19,風量小',
@@ -69,6 +62,27 @@ remote_control_dict = {
     '58': '冷氣睡眠,溫度26,自動',
     '59': '冷氣關',
 }
+ir_status = {
+    'On': '有人', 'Off': '無人',
+}
+remote_control_dict = {
+    '01': '電視開關鍵', '02': '電視頻道向上', '03': '電視頻道向下', '04': '電視音量調大', '05': '電視音量調小', '06': '電視頻道1',
+    '07': '電視頻道2', '08': '電視頻道3', '09': '電視頻道4', '10': '電視頻道5', '11': '電視頻道6', '12': '電視頻道7',
+    '13': '電視頻道8', '14': '電視頻道9', '15': '電視頻道0', '16': '電視返回鍵', '17': '電視靜音鍵', '18': '電視輸入切換鍵',
+    '19': '上鍵', '20': '下鍵', '21': '左鍵', '22': '右鍵', '23': 'OK',
+
+}
+status_302 = None
+status_303 = None
+
+
+def push_note(message):
+    # Payload data you want to send to devices
+    data = {'message': message}
+    # The recipient device registration IDs
+    registration_ids = ['6ed6292be4ac96e7b68e9e']  # TODO 改
+    # Send the push notification with Pushy
+    PushyAPI.sendPushNotification(data, registration_ids)
 
 
 def new_data_query(id_from):
@@ -83,12 +97,7 @@ def status_trans(sensor_number, status_string, status_string2):
         return status_string
     elif sensor_number[0] == 'a':
         if status_string2 > 140 or status_string > 80:
-            # Payload data you want to send to devices
-            data = {'message': '血壓過高'}
-            # The recipient device registration IDs
-            registration_ids = ['6ed6292be4ac96e7b68e9e']  # TODO 改
-            # Send the push notification with Pushy
-            PushyAPI.sendPushNotification(data, registration_ids)
+            push_note('血壓過高')
         return '收縮壓：' + str(status_string2) + '舒張壓：' + str(status_string)
     else:
         return status_dict[status_string]
@@ -113,6 +122,17 @@ while True:
         cursor.execute(new_data_query(last_id))
         row = cursor.fetchone()
         while row is not None:
+            # 水流通知
+            if row[2] == '302':
+                status_302 = row[4]
+            elif row[2] == '401' and status_302 == 'Off':
+                push_note('水流忘記關')
+            # 瓦斯通知
+            if row[2] == '303':
+                status_302 = row[4]
+            elif row[2] == '604' and status_303 == 'Off':
+                push_note('電磁爐忘記關')
+
             last_id = row[0]
             print(row)
             model = number_dict[row[2]]

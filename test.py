@@ -1,7 +1,2 @@
-def test():
-
-
-    if 'a' == 'a':
-        return '收縮壓：', '收縮壓：'
-
-print(test())
+123_abc = 1
+print(123_abc)
