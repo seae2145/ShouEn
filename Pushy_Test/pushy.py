@@ -6,7 +6,8 @@ class PushyAPI:
     @staticmethod
     def sendPushNotification(data, ids):
         # Insert your Pushy Secret API Key here
-        apiKey = 'a9b3279a3070b877c296db7971b2a629019bfe3725435eb2d6f5f86f49453ab1'
+        # apiKey = '8da98c1c0272d8066a77ad92ac26e460774be54d813572cc0f93d45dc1ebe530'
+        apiKey = '51ebce2e3e83177f18bbe1ed3de513268d1f123ee037eacafd187faffb91c54b'
 
         # Set post variables
         postData = {
@@ -21,6 +22,8 @@ class PushyAPI:
         req.add_header('Content-Type', 'application/json')
 
         print(json.dumps(postData))
+        print(json.dumps(postData).encode('utf-8'))
 
         # Actually send the push
         response = urllib.request.urlopen(req, json.dumps(postData).encode('utf-8'))
+        # response = urllib.request.urlopen(req, json.dumps(postData))

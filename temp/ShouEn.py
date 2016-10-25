@@ -1,6 +1,6 @@
 import serial
-import mssql_upload
-import mysql_upload
+
+from temp import mysql_upload
 
 # need change
 port_name = "/dev/cu.usbmodem1421"
@@ -12,4 +12,3 @@ with serial.Serial(port_name) as arduino_port:
         print(readed)
         values = readed.replace('{', '').replace('}', '').split(',')
         mysql_upload.upload(values[0], values[1], values[2], values[3])
-        mssql_upload.upload(values[0], values[1], values[2], values[3])

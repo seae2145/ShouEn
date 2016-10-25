@@ -1,6 +1,6 @@
 import serial
 
-import list_serial_port
+from temp import list_serial_port
 
 print(list_serial_port.serial_ports())
 

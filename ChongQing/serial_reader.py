@@ -1,5 +1,6 @@
 import serial
-from mysql_upload import upload as my_upload
+
+from ChongQing.mysql_upload import upload as my_upload
 
 # TODO Change Port Name for Windows
 port_name = "/dev/cu.usbserial-A600K5I9"

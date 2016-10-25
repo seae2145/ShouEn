@@ -1,6 +1,7 @@
 import serial
-from mysql_upload import upload as my_upload
 from mssql_upload import upload as ms_upload
+
+from temp.mysql_upload import upload as my_upload
 
 # need change
 port_name = "/dev/ttyACM0"
