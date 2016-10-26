@@ -7,7 +7,7 @@ class PushyAPI:
     def sendPushNotification(data, ids):
         # Insert your Pushy Secret API Key here
         # apiKey = '8da98c1c0272d8066a77ad92ac26e460774be54d813572cc0f93d45dc1ebe530'
-        apiKey = '51ebce2e3e83177f18bbe1ed3de513268d1f123ee037eacafd187faffb91c54b'
+        apiKey = '8da98c1c0272d8066a77ad92ac26e460774be54d813572cc0f93d45dc1ebe530'
 
         # Set post variables
         postData = {

@@ -1,4 +1,5 @@
 import time
+import datetime
 import mysql.connector
 from ChongQing.pushy import PushyAPI
 from ChongQing.libs.dicts import *
@@ -43,30 +44,41 @@ def print_on_monitor(object_id, object_name, object_value, trigger_time):
 
     if object_id[0] == '3':
         sensor_status = status_dict_ir[object_value]
+        global is_303_no_man
+        global is_604_on
         if object_id == '302':
             change_man_in_302(object_value)
         if object_id == '303':
             change_man_in_303(object_value)
+            if is_604_on and is_303_no_man:
+                # TODO change to real
+                print(datetime.datetime.now().strftime('%H:%M:%S'), '\t發送通知長輩電磁爐沒關')
+                # push_note('電磁爐沒關')
+                is_303_no_man = False
 
     elif object_id[0] == '4':
-        sensor_status = status_dict[object_value]
+        sensor_status = object_value
+        global is_302_no_man
         if object_id == '401' and is_302_no_man:
-            push_note('水龍頭沒關')
-            global is_302_no_man
+            # TODO change to real
+            print(datetime.datetime.now().strftime('%H:%M:%S'), '\t發送通知長輩洗手台水沒關')
+            # push_note('水龍頭沒關')
             is_302_no_man = False
 
     elif object_id[0] == '6':
         sensor_status = status_dict[object_value]
-        if object_id == '604' and is_303_no_man and object_value == '':
-            change_man_in_302(object_value)  # TODO
+        if object_id == '604':
+            change_604_onoff(object_value)
 
     elif object_id[0] == '9':
         sensor_status = status_for_901(object_name, object_value)
 
     elif object_id[0] == 'a':
         sensor_status = status_for_a01(object_name, object_value)
-        if object_name > 140 or object_value > 80:
-            push_note('血壓過高')
+        if int(object_name) > 140 or int(object_value) > 80:
+            # TODO change to real
+            print(datetime.datetime.now().strftime('%H:%M:%S'), '\t發送通知家屬血壓過高')
+            # push_note('血壓過高')
     else:
         sensor_status = status_dict[object_value]
 
@@ -88,7 +100,7 @@ def status_for_901(object_name, object_value):
 
 
 def status_for_a01(object_name, object_value):
-    status = '收縮壓：' + str(object_name) + '舒張壓：' + str(object_value)
+    status = '收縮壓：' + object_name + ' 舒張壓：' + object_value
     return status
 
 
@@ -108,7 +120,7 @@ def change_man_in_303(status):
         is_303_no_man = True
 
 
-def change_man_in_604(status):
+def change_604_onoff(status):
     global is_604_on
     if status == 'On':
         is_604_on = True

@@ -5,6 +5,6 @@ data = {'message': '999'}
 
 # The recipient device registration IDs
 # registration_ids = ['dd2c902254468116b2ea2']
-registration_ids = ['6ed6292be4ac96e7b68e9e']
+registration_ids = ['418720f46bb10272ec7d0d']
 # Send the push notification with Pushy
 PushyAPI.sendPushNotification(data, registration_ids)
