@@ -5,8 +5,8 @@ from ChongQing.pushy import PushyAPI
 from ChongQing.libs.dicts import *
 
 config = {
-    'user': 'root',
-    'password': 'lqdm)s6<;G-A',
+    'user': 'stipendiary',
+    'password': '073109383',
     'host': 'localhost',
     'database': 'stipendiary',
 }
@@ -52,7 +52,7 @@ def print_on_monitor(object_id, object_name, object_value, trigger_time):
             change_man_in_303(object_value)
             if is_604_on and is_303_no_man:
                 # TODO change to real
-                print(datetime.datetime.now().strftime('%H:%M:%S'), '\t發送通知長輩電磁爐沒關')
+                print(datetime.datetime.now().strftime('%H:%M:%S') + ' 發送通知長輩電磁爐沒關')
                 # push_note('電磁爐沒關')
                 is_303_no_man = False
 
@@ -61,7 +61,7 @@ def print_on_monitor(object_id, object_name, object_value, trigger_time):
         global is_302_no_man
         if object_id == '401' and is_302_no_man:
             # TODO change to real
-            print(datetime.datetime.now().strftime('%H:%M:%S'), '\t發送通知長輩洗手台水沒關')
+            print(datetime.datetime.now().strftime('%H:%M:%S') + ' 發送通知長輩洗手台水沒關')
             # push_note('水龍頭沒關')
             is_302_no_man = False
 
@@ -77,12 +77,12 @@ def print_on_monitor(object_id, object_name, object_value, trigger_time):
         sensor_status = status_for_a01(object_name, object_value)
         if int(object_name) > 140 or int(object_value) > 80:
             # TODO change to real
-            print(datetime.datetime.now().strftime('%H:%M:%S'), '\t發送通知家屬血壓過高')
+            print(datetime.datetime.now().strftime('%H:%M:%S') + ' 發送通知家屬血壓過高')
             # push_note('血壓過高')
     else:
         sensor_status = status_dict[object_value]
 
-    print(sensor_time, '\t', sensor_name, '：', sensor_status)
+    print(sensor_time + ' ' + sensor_name + '：' + sensor_status)
 
 
 def status_for_901(object_name, object_value):
