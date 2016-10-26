@@ -20,7 +20,7 @@ class PushyAPI:
         # Set Content-Type header since we're sending JSON
         req.add_header('Content-Type', 'application/json')
 
-        print(json.dumps(postData))
+        # print(json.dumps(postData))
 
         # Actually send the push
         response = urllib.request.urlopen(req, json.dumps(postData).encode('utf-8'))
