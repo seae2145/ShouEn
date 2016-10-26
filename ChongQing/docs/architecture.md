@@ -6,6 +6,7 @@
 --------
 install guild
 *   python
+    *   add python.exe to PATH (while install)
     *   install module mysql.connector
     *   install module pyserial
 *   xampp
