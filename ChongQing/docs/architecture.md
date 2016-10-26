@@ -3,10 +3,17 @@
 *   loop    
     *   read new data
     *   print new data
+--------
+install guild
 *   python
-    *   mysql.connector
-    *   pyserial
+    *   install module mysql.connector
+    *   install module pyserial
 *   xampp
-    *   301 table
-    *   stipendiray account password
+    *   create database stipendiray
+    *   upload table 301 in database stipendiray
+    *   create account stipendiray and password
 *   arduino
+*   windows
+    *   update
+    
+thank you, guys
