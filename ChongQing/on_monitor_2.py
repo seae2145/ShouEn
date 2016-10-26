@@ -51,18 +51,16 @@ def print_on_monitor(object_id, object_name, object_value, trigger_time):
         if object_id == '303':
             change_man_in_303(object_value)
             if is_604_on and is_303_no_man:
-                # TODO change to real
-                print(datetime.datetime.now().strftime('%H:%M:%S') + ' 發送通知長輩電磁爐沒關')
-                # push_note('電磁爐沒關')
+                print(datetime.datetime.now().strftime('%H:%M:%S') + '   發送通知長輩電磁爐沒關')
+                push_note('電磁爐沒關')
                 is_303_no_man = False
 
     elif object_id[0] == '4':
         sensor_status = object_value
         global is_302_no_man
         if object_id == '401' and is_302_no_man:
-            # TODO change to real
-            print(datetime.datetime.now().strftime('%H:%M:%S') + ' 發送通知長輩洗手台水沒關')
-            # push_note('水龍頭沒關')
+            print(datetime.datetime.now().strftime('%H:%M:%S') + '   發送通知長輩洗手台水沒關')
+            push_note('水龍頭沒關')
             is_302_no_man = False
 
     elif object_id[0] == '6':
@@ -76,13 +74,12 @@ def print_on_monitor(object_id, object_name, object_value, trigger_time):
     elif object_id[0] == 'a':
         sensor_status = status_for_a01(object_name, object_value)
         if int(object_name) > 140 or int(object_value) > 80:
-            # TODO change to real
-            print(datetime.datetime.now().strftime('%H:%M:%S') + ' 發送通知家屬血壓過高')
-            # push_note('血壓過高')
+            print(datetime.datetime.now().strftime('%H:%M:%S') + '   發送通知家屬血壓過高')
+            push_note('血壓過高')
     else:
         sensor_status = status_dict[object_value]
 
-    print(sensor_time + ' ' + sensor_name + '：' + sensor_status)
+    print(sensor_time + '   ' + sensor_name + '：' + sensor_status)
 
 
 def status_for_901(object_name, object_value):
@@ -132,7 +129,7 @@ def push_note(message):
     # Payload data you want to send to devices
     data = {'message': message}
     # The recipient device registration IDs
-    registration_ids = ['dd2c902254468116b2ea2']  # TODO 改
+    registration_ids = ['418720f46bb10272ec7d0d']  # TODO 改
     # Send the push notification with Pushy
     PushyAPI.sendPushNotification(data, registration_ids)
 
