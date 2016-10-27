@@ -144,6 +144,7 @@ def main():
             for table_id, objectID, objectName, objectValue, trigger_time in new_datas:
                 print_on_monitor(objectID, objectName, objectValue, trigger_time)
             last_id = new_datas[-1][0]
+        time.sleep(1)
 
 
 if __name__ == '__main__':
